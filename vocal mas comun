@@ -1,0 +1,31 @@
+#Posible solucion al ejercicio 48 de https://retosdeprogramacion.com/ejercicios/
+#Crea un función que reciba un texto y retorne la vocal que
+# * más veces se repita.
+# * - Ten cuidado con algunos casos especiales.
+# * - Si no hay vocales podrá devolver vacío.
+
+from unidecode import unidecode
+
+def vocales_comunes(texto):
+    #Declaramos las variables
+    lista_vocales = "aeiou"
+    diccionario_vocales = {
+        "a":0,
+        "e":0,
+        "i":0,
+        "o":0,
+        "u":0
+    }
+
+    #Filtramos el texto eliminando tildes y converimos todos los caracteres a minusculas
+    texto_filtrado = unidecode(texto.lower())
+    
+    for c in texto_filtrado:
+        if c in lista_vocales:
+            diccionario_vocales[c] += 1
+            
+    if max(diccionario_vocales.values()) == 0:
+        return f"El texto '{texto}' no contiene letras vocales"
+            
+    vocales_mas_comunes = [clave for clave, valor in diccionario_vocales.items() if valor == max(diccionario_vocales.values())]
+    return f"Las vocales más comunes del texto '{texto}' son: {vocales_mas_comunes}"
